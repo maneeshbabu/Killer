@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
-    private GameObject _tripleShotPowerUpPrefab;
+    private GameObject[] _powerups;
     [SerializeField]
     private GameObject _speedPowerUpPrefab;
     [SerializeField]
@@ -24,8 +24,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         StartCoroutine("SpawnEnemyRoutine");
-        StartCoroutine("SpawnTripleShotPowerUpRoutine");
-        StartCoroutine(SpawnSpeedBoostPowerUpRoutine());
+        StartCoroutine(SpawnPowerUpRoutine());
 
     }
 
@@ -45,27 +44,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnTripleShotPowerUpRoutine()
+    IEnumerator SpawnPowerUpRoutine()
     {
         while (_isPlayerAlive)
         {
             yield return new WaitForSeconds(Random.Range(5.0f, 30.0f));
-            GameObject tripleShotPowerUp = Instantiate(_tripleShotPowerUpPrefab, new Vector3(Random.Range(-9.0f, 9.0f), 7.4f, 0), Quaternion.identity);
+            int randomPowerUp = Random.Range(0, 2);
+
+            GameObject tripleShotPowerUp = Instantiate(_powerups[randomPowerUp], new Vector3(Random.Range(-9.0f, 9.0f), 7.4f, 0), Quaternion.identity);
             tripleShotPowerUp.transform.parent = _powerUpContainer.transform;
         }
     }
-
-    IEnumerator SpawnSpeedBoostPowerUpRoutine()
-    {
-        while (_isPlayerAlive)
-        {
-            yield return new WaitForSeconds(Random.Range(5.0f, 30.0f));
-            GameObject speedBoostPowerUp = Instantiate(_speedPowerUpPrefab, new Vector3(Random.Range(-9.0f, 9.0f), 7.4f, 0), Quaternion.identity);
-            speedBoostPowerUp.transform.parent = _powerUpContainer.transform;
-        }
-    }
-
-
 
     public void PlayerDied()
     {
