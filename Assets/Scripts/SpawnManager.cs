@@ -49,7 +49,7 @@ public class SpawnManager : MonoBehaviour
         while (_isPlayerAlive)
         {
             yield return new WaitForSeconds(Random.Range(5.0f, 30.0f));
-            int randomPowerUp = Random.Range(0, 2);
+            int randomPowerUp = Random.Range(0, 3);
 
             GameObject tripleShotPowerUp = Instantiate(_powerups[randomPowerUp], new Vector3(Random.Range(-9.0f, 9.0f), 7.4f, 0), Quaternion.identity);
             tripleShotPowerUp.transform.parent = _powerUpContainer.transform;

@@ -39,8 +39,12 @@ public class PowerUp : MonoBehaviour
                 {
                     case Powerups.SPEED:
                         {
-                            Debug.Log("HIT SPEED POWER UP");
                             player.PowerUp(1);
+                        }
+                        break;
+                    case Powerups.SHEILD:
+                        {
+                            player.PowerUp(2);
                         }
                         break;
                     default:

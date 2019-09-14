@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     private float _life = 3;
     [SerializeField]
     private Transform _tripleLaserPrefab;
+    [SerializeField]
+    private Transform _thrustPrefab;
+    [SerializeField]
+    private GameObject _sheildView;
 
     private bool _isTripleShotEnabled = false;
     private bool _isSheildEnabled = false;
@@ -28,6 +32,7 @@ public class Player : MonoBehaviour
     {
         // take current position to user
         transform.position = new Vector3(0, 0, 0);
+        _sheildView.SetActive(false);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         if (_spawnManager == null)
         {
@@ -92,9 +97,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    void ShowThruster()
+    {
+
+    }
+
     public void Damage()
     {
+        if (_isSheildEnabled == true) {
+            _isSheildEnabled = false;
+            _sheildView.SetActive(false);
+            return;
+        }
+
         _life -= 1;
+
         if (_life < 1)
         {
             _spawnManager.PlayerDied();
@@ -111,6 +128,7 @@ public class Player : MonoBehaviour
             _isSpeedEnabled = true;
         }else if (type == 2)
         {
+            _sheildView.SetActive(true);
             _isSheildEnabled = true;
         }
 
@@ -123,5 +141,6 @@ public class Player : MonoBehaviour
         _isTripleShotEnabled = false;
         _isSpeedEnabled = false;
         _isSheildEnabled = false;
+        _sheildView.SetActive(false);
     }
 }
